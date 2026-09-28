@@ -1,11 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    hellow world
-</body>
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="ジャンプと攻撃でゴールを目指す、横スクロールアクションゲーム。"
+    />
+    <title>SKY RUNNER | 横スクロールアクション</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="game.js" defer></script>
+  </head>
+  <body>
+    <main class="game-shell">
+      <header class="game-header">
+        <div>
+          <p class="eyebrow">MINI ACTION GAME</p>
+          <h1>SKY RUNNER <span>空の遺跡</span></h1>
+        </div>
+        <p class="header-note">走って、跳んで、ゴールを目指そう。</p>
+      </header>
+
+      <section class="game-frame" aria-label="ゲーム画面">
+        <canvas id="game" width="960" height="540" aria-label="横スクロールアクションゲーム">
+          このゲームを遊ぶにはCanvasに対応したブラウザーが必要です。
+        </canvas>
+        <div class="touch-controls" aria-label="タッチ操作">
+          <div class="touch-movement">
+            <button class="touch-button" data-control="left" aria-label="左へ移動">◀</button>
+            <button class="touch-button" data-control="right" aria-label="右へ移動">▶</button>
+          </div>
+          <div class="touch-actions">
+            <button class="touch-button touch-jump" data-control="jump" aria-label="ジャンプ">JUMP</button>
+            <button class="touch-button touch-attack" data-control="attack" aria-label="攻撃">ATTACK</button>
+          </div>
+        </div>
+      </section>
+
+      <footer class="game-footer">
+        <p><kbd>A</kbd><kbd>D</kbd> / <kbd>←</kbd><kbd>→</kbd> 移動 <span>·</span> <kbd>Space</kbd> ジャンプ <span>·</span> <kbd>J</kbd> 攻撃</p>
+        <p class="restart-hint"><kbd>R</kbd> リスタート</p>
+      </footer>
+    </main>
+  </body>
 </html>

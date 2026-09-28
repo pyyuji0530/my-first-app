@@ -1,0 +1,207 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap");
+
+:root {
+  color-scheme: dark;
+  font-family: "Space Grotesk", "Noto Sans JP", sans-serif;
+  background: #11151d;
+  color: #f4f5f8;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  padding: 40px 24px;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgb(66 74 111 / 24%), transparent 55%),
+    #11151d;
+}
+
+.game-shell {
+  width: min(100%, 1120px);
+  margin: 0 auto;
+}
+
+.game-header,
+.game-footer {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.game-header {
+  margin: 0 0 20px;
+}
+
+.eyebrow {
+  margin: 0 0 7px;
+  color: #ffbe69;
+  font: 500 11px/1 "DM Mono", monospace;
+  letter-spacing: 0.18em;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(25px, 4vw, 38px);
+  font-weight: 700;
+  letter-spacing: -0.06em;
+}
+
+h1 span {
+  margin-left: 9px;
+  color: #aeb5c9;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  vertical-align: 5px;
+}
+
+.header-note {
+  margin: 0 0 4px;
+  color: #aeb5c9;
+  font-size: 13px;
+}
+
+.game-frame {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgb(226 231 255 / 14%);
+  border-radius: 13px;
+  background: #92c6df;
+  box-shadow: 0 24px 70px rgb(0 0 0 / 35%);
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+}
+
+.game-footer {
+  align-items: center;
+  margin-top: 14px;
+  color: #aeb5c9;
+  font: 12px/1.5 "DM Mono", monospace;
+}
+
+.game-footer p {
+  margin: 0;
+}
+
+kbd {
+  display: inline-block;
+  min-width: 22px;
+  margin: 0 2px;
+  padding: 3px 6px;
+  border: 1px solid #414958;
+  border-radius: 5px;
+  background: #202631;
+  color: #f4f5f8;
+  font: inherit;
+  text-align: center;
+}
+
+.game-footer span {
+  margin: 0 5px;
+  color: #5e6879;
+}
+
+.touch-controls {
+  display: none;
+  position: absolute;
+  inset: auto 14px 14px;
+  align-items: end;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.touch-movement,
+.touch-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.touch-button {
+  width: 52px;
+  height: 52px;
+  border: 1px solid rgb(255 255 255 / 35%);
+  border-radius: 50%;
+  background: rgb(24 31 44 / 68%);
+  color: white;
+  font: 600 15px "DM Mono", monospace;
+  touch-action: none;
+  user-select: none;
+  pointer-events: auto;
+}
+
+.touch-button:active {
+  background: rgb(255 190 105 / 85%);
+  color: #18202d;
+}
+
+.touch-jump {
+  width: 62px;
+  height: 62px;
+  font-size: 10px;
+}
+
+.touch-attack {
+  width: 62px;
+  height: 62px;
+  background: rgb(220 100 84 / 78%);
+  font-size: 9px;
+}
+
+@media (pointer: coarse), (max-width: 700px) {
+  body {
+    padding: 24px 14px;
+  }
+
+  .header-note {
+    display: none;
+  }
+
+  .touch-controls {
+    display: flex;
+  }
+
+  .game-footer {
+    align-items: start;
+    font-size: 10px;
+  }
+
+  .restart-hint {
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 420px) {
+  body {
+    padding: 20px 10px;
+  }
+
+  .game-header {
+    margin-bottom: 14px;
+  }
+
+  .game-footer {
+    display: block;
+  }
+
+  .restart-hint {
+    margin-top: 8px !important;
+  }
+
+  .game-footer kbd {
+    min-width: 19px;
+    padding: 2px 4px;
+  }
+}
