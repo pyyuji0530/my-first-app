@@ -3,8 +3,8 @@
 :root {
   color-scheme: dark;
   font-family: "Space Grotesk", "Noto Sans JP", sans-serif;
-  background: #11151d;
-  color: #f4f5f8;
+  background: #0b1020;
+  color: #eaf8ff;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
 }
@@ -19,8 +19,8 @@ body {
   margin: 0;
   padding: 40px 24px;
   background:
-    radial-gradient(ellipse at 50% 0%, rgb(66 74 111 / 24%), transparent 55%),
-    #11151d;
+    radial-gradient(ellipse at 50% 0%, rgb(49 91 145 / 25%), transparent 55%),
+    #0b1020;
 }
 
 .game-shell {
@@ -42,7 +42,7 @@ body {
 
 .eyebrow {
   margin: 0 0 7px;
-  color: #ffbe69;
+  color: #62ddec;
   font: 500 11px/1 "DM Mono", monospace;
   letter-spacing: 0.18em;
 }
@@ -56,7 +56,7 @@ h1 {
 
 h1 span {
   margin-left: 9px;
-  color: #aeb5c9;
+  color: #a8b8d3;
   font-size: 14px;
   font-weight: 500;
   letter-spacing: 0.08em;
@@ -65,17 +65,17 @@ h1 span {
 
 .header-note {
   margin: 0 0 4px;
-  color: #aeb5c9;
+  color: #a8b8d3;
   font-size: 13px;
 }
 
 .game-frame {
   position: relative;
   overflow: hidden;
-  border: 1px solid rgb(226 231 255 / 14%);
+  border: 1px solid rgb(120 207 235 / 22%);
   border-radius: 13px;
-  background: #92c6df;
-  box-shadow: 0 24px 70px rgb(0 0 0 / 35%);
+  background: #18223b;
+  box-shadow: 0 24px 70px rgb(0 0 0 / 45%), 0 0 36px rgb(62 179 212 / 9%);
 }
 
 canvas {
@@ -88,7 +88,7 @@ canvas {
 .game-footer {
   align-items: center;
   margin-top: 14px;
-  color: #aeb5c9;
+  color: #a8b8d3;
   font: 12px/1.5 "DM Mono", monospace;
 }
 
@@ -101,10 +101,10 @@ kbd {
   min-width: 22px;
   margin: 0 2px;
   padding: 3px 6px;
-  border: 1px solid #414958;
+  border: 1px solid #3d506e;
   border-radius: 5px;
-  background: #202631;
-  color: #f4f5f8;
+  background: #18243b;
+  color: #eaf8ff;
   font: inherit;
   text-align: center;
 }
@@ -143,8 +143,8 @@ kbd {
 }
 
 .touch-button:active {
-  background: rgb(255 190 105 / 85%);
-  color: #18202d;
+  background: rgb(82 214 232 / 90%);
+  color: #0d1b2d;
 }
 
 .touch-jump {
@@ -156,7 +156,7 @@ kbd {
 .touch-attack {
   width: 62px;
   height: 62px;
-  background: rgb(220 100 84 / 78%);
+  background: rgb(125 65 122 / 82%);
   font-size: 9px;
 }
 
