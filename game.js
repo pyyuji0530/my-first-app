@@ -189,28 +189,46 @@ function takeDamage(fell) {
 
 function drawBackground() {
   const sky = ctx.createLinearGradient(0, 0, 0, HEIGHT);
-  sky.addColorStop(0, "#8dc7df");
-  sky.addColorStop(0.7, "#d0e4d7");
-  sky.addColorStop(1, "#f2c994");
+  sky.addColorStop(0, "#10162f");
+  sky.addColorStop(0.55, "#29365a");
+  sky.addColorStop(1, "#18223b");
   ctx.fillStyle = sky;
   ctx.fillRect(0, 0, WIDTH, HEIGHT);
 
-  ctx.fillStyle = "rgba(255, 244, 207, 0.8)";
+  const moonX = 770 - cameraX * 0.08;
+  const moonGlow = ctx.createRadialGradient(moonX, 105, 8, moonX, 105, 100);
+  moonGlow.addColorStop(0, "rgba(102, 237, 255, 0.22)");
+  moonGlow.addColorStop(1, "rgba(102, 237, 255, 0)");
+  ctx.fillStyle = moonGlow;
   ctx.beginPath();
-  ctx.arc(770 - cameraX * 0.08, 105, 40, 0, Math.PI * 2);
+  ctx.arc(moonX, 105, 100, 0, Math.PI * 2);
   ctx.fill();
+
+  ctx.fillStyle = "#d7f7ff";
+  ctx.beginPath();
+  ctx.arc(moonX, 105, 32, 0, Math.PI * 2);
+  ctx.fill();
+
+  for (let i = 0; i < 30; i += 1) {
+    const starX = ((i * 173 + 47 - cameraX * 0.025) % WIDTH + WIDTH) % WIDTH;
+    const starY = 24 + ((i * 67) % 220);
+    ctx.fillStyle = `rgba(205, 239, 255, ${0.28 + (i % 4) * 0.12})`;
+    ctx.beginPath();
+    ctx.arc(starX, starY, i % 5 === 0 ? 1.8 : 1, 0, Math.PI * 2);
+    ctx.fill();
+  }
 
   drawCloud(160 - cameraX * 0.15, 105, 1);
   drawCloud(565 - cameraX * 0.12, 165, 0.8);
   drawCloud(910 - cameraX * 0.16, 95, 0.9);
 
-  drawMountainLayer("#9ac8c5", 0.2, 365, 95);
-  drawMountainLayer("#709e9e", 0.34, 420, 72);
+  drawMountainLayer("#35466d", 0.2, 365, 95);
+  drawMountainLayer("#243453", 0.34, 420, 72);
 }
 
 function drawCloud(x, y, scale) {
   x = ((x % (WIDTH + 220)) + WIDTH + 220) % (WIDTH + 220) - 110;
-  ctx.fillStyle = "rgba(255, 255, 255, 0.48)";
+  ctx.fillStyle = "rgba(151, 190, 230, 0.12)";
   ctx.beginPath();
   ctx.ellipse(x, y, 43 * scale, 13 * scale, 0, 0, Math.PI * 2);
   ctx.ellipse(x - 22 * scale, y + 2 * scale, 20 * scale, 13 * scale, 0, 0, Math.PI * 2);
@@ -238,11 +256,11 @@ function drawWorld() {
   ctx.translate(-cameraX, 0);
 
   for (const platform of platforms) {
-    ctx.fillStyle = platform.y >= 460 ? "#80604b" : "#89715c";
+    ctx.fillStyle = platform.y >= 460 ? "#202d47" : "#2b3954";
     ctx.fillRect(platform.x, platform.y, platform.width, platform.height);
-    ctx.fillStyle = "#598b69";
+    ctx.fillStyle = "#42c6d8";
     ctx.fillRect(platform.x, platform.y, platform.width, 9);
-    ctx.fillStyle = "rgba(255, 224, 165, 0.18)";
+    ctx.fillStyle = "rgba(131, 219, 239, 0.14)";
     for (let x = platform.x + 18; x < platform.x + platform.width; x += 45) {
       ctx.fillRect(x, platform.y + 24, 13, 4);
       ctx.fillRect(x + 16, platform.y + 47, 8, 4);
@@ -259,16 +277,16 @@ function drawWorld() {
 
 function drawGoal() {
   const x = WORLD_WIDTH - 155;
-  ctx.fillStyle = "#f7e6bf";
+  ctx.fillStyle = "#b8f5ff";
   ctx.fillRect(x, 338, 9, 130);
-  ctx.fillStyle = "#f18b66";
+  ctx.fillStyle = "#54d8e8";
   ctx.beginPath();
   ctx.moveTo(x + 9, 340);
   ctx.lineTo(x + 75, 360);
   ctx.lineTo(x + 9, 382);
   ctx.closePath();
   ctx.fill();
-  ctx.fillStyle = "rgba(255, 244, 207, 0.16)";
+  ctx.fillStyle = "rgba(84, 216, 232, 0.17)";
   ctx.beginPath();
   ctx.arc(x + 12, 400, 54 + Math.sin(elapsedTime * 4) * 4, 0, Math.PI * 2);
   ctx.fill();
@@ -277,28 +295,62 @@ function drawGoal() {
 function drawPlayer() {
   if (player.invulnerable > 0 && Math.floor(elapsedTime * 15) % 2 === 0) return;
   const { x, y, width, height, facing } = player;
-  ctx.fillStyle = "#26364b";
-  ctx.fillRect(x + 4, y + 12, width - 8, height - 12);
-  ctx.fillStyle = "#f5bc82";
-  ctx.fillRect(x + 8, y + 1, width - 12, 21);
-  ctx.fillStyle = "#e67758";
-  ctx.fillRect(x + (facing > 0 ? 3 : 13), y + 0, 23, 7);
-  ctx.fillStyle = "#26364b";
-  ctx.fillRect(x + (facing > 0 ? 23 : 10), y + 9, 4, 4);
-  ctx.fillStyle = "#f5bc82";
-  ctx.fillRect(x + (facing > 0 ? width - 2 : -2), y + 24, 6, 17);
-  ctx.fillStyle = "#e9d7a8";
+  ctx.fillStyle = "rgba(4, 10, 25, 0.3)";
+  ctx.beginPath();
+  ctx.ellipse(x + width / 2, y + height, 21, 5, 0, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.fillStyle = "#14223b";
+  ctx.beginPath();
+  ctx.moveTo(x + 9, y + 19);
+  ctx.lineTo(x + 25, y + 20);
+  ctx.lineTo(x + 31, y + 47);
+  ctx.lineTo(x + 16, y + 41);
+  ctx.lineTo(x + 3, y + 48);
+  ctx.closePath();
+  ctx.fill();
+  ctx.fillStyle = "#258da6";
+  ctx.beginPath();
+  ctx.moveTo(x + 9, y + 21);
+  ctx.lineTo(x + 3, y + 48);
+  ctx.lineTo(x + 16, y + 41);
+  ctx.closePath();
+  ctx.fill();
+
+  ctx.fillStyle = "#263a59";
+  ctx.fillRect(x + 8, y + 17, width - 15, 28);
+  ctx.fillStyle = "#5ce1ef";
+  ctx.fillRect(x + 12, y + 22, 12, 3);
+  ctx.fillStyle = "#172642";
+  ctx.fillRect(x + 8, y + 1, width - 12, 20);
+  ctx.fillStyle = "#65e9f3";
+  ctx.fillRect(x + (facing > 0 ? 17 : 7), y + 10, 12, 4);
+  ctx.fillStyle = "#101a30";
+  ctx.beginPath();
+  ctx.moveTo(x + 6, y + 8);
+  ctx.lineTo(x + 12, y - 4);
+  ctx.lineTo(x + 18, y + 3);
+  ctx.lineTo(x + 29, y + 1);
+  ctx.lineTo(x + 31, y + 9);
+  ctx.closePath();
+  ctx.fill();
+  ctx.fillStyle = "#263a59";
+  ctx.fillRect(x + (facing > 0 ? width - 4 : -2), y + 25, 7, 16);
+  ctx.fillStyle = "#45cadd";
+  ctx.fillRect(x + 5, y + height - 8, 12, 8);
+  ctx.fillRect(x + 20, y + height - 8, 12, 8);
+  ctx.fillStyle = "#a9f5ff";
   ctx.fillRect(x + 4, y + height - 7, 11, 7);
   ctx.fillRect(x + 20, y + height - 7, 11, 7);
 
   if (player.attackTime > 0) {
     const slashX = facing > 0 ? x + width - 3 : x - 45;
-    ctx.fillStyle = "rgba(255, 232, 157, 0.82)";
+    ctx.fillStyle = "rgba(87, 231, 255, 0.34)";
     ctx.beginPath();
     ctx.ellipse(slashX + 23, y + 28, 27, 12, facing > 0 ? -0.35 : 0.35, 0, Math.PI * 2);
     ctx.fill();
-    ctx.strokeStyle = "#fff7dc";
-    ctx.lineWidth = 3;
+    ctx.strokeStyle = "#9ff7ff";
+    ctx.lineWidth = 4;
     ctx.beginPath();
     ctx.arc(slashX + 23, y + 28, 25, -0.9, 0.8);
     ctx.stroke();
@@ -306,39 +358,39 @@ function drawPlayer() {
 }
 
 function drawEnemy(enemy) {
-  ctx.fillStyle = "#a64f4d";
+  ctx.fillStyle = "#492b53";
   ctx.fillRect(enemy.x + 2, enemy.y + 7, enemy.width - 4, enemy.height - 7);
-  ctx.fillStyle = "#d87864";
+  ctx.fillStyle = "#8c4c79";
   ctx.fillRect(enemy.x, enemy.y + 14, enemy.width, 16);
-  ctx.fillStyle = "#f5d4a0";
+  ctx.fillStyle = "#ff8ab8";
   ctx.fillRect(enemy.x + (enemy.direction > 0 ? 20 : 8), enemy.y + 15, 4, 5);
-  ctx.fillStyle = "#583e50";
+  ctx.fillStyle = "#2a243f";
   ctx.fillRect(enemy.x + 4, enemy.y + enemy.height - 5, 9, 5);
   ctx.fillRect(enemy.x + 19, enemy.y + enemy.height - 5, 9, 5);
 }
 
 function drawHud() {
-  ctx.fillStyle = "rgba(25, 38, 52, 0.76)";
+  ctx.fillStyle = "rgba(13, 22, 42, 0.82)";
   roundRect(ctx, 22, 20, 176, 48, 12);
-  ctx.fillStyle = "#fff4d9";
+  ctx.fillStyle = "#dffaff";
   ctx.font = '500 12px "DM Mono", monospace';
   ctx.fillText("HEALTH", 38, 40);
   for (let i = 0; i < 3; i += 1) {
-    ctx.fillStyle = i < player.health ? "#ee8267" : "rgba(255, 255, 255, 0.2)";
+    ctx.fillStyle = i < player.health ? "#58d9e9" : "rgba(255, 255, 255, 0.2)";
     drawHeart(111 + i * 25, 44, 8);
   }
 
-  ctx.fillStyle = "rgba(25, 38, 52, 0.64)";
+  ctx.fillStyle = "rgba(13, 22, 42, 0.78)";
   roundRect(ctx, WIDTH - 172, 20, 150, 38, 11);
-  ctx.fillStyle = "#fff4d9";
+  ctx.fillStyle = "#dffaff";
   ctx.textAlign = "right";
   ctx.fillText(`${Math.min(100, Math.floor((player.x / (WORLD_WIDTH - 150)) * 100))}%  →`, WIDTH - 38, 44);
   ctx.textAlign = "left";
 
   if (elapsedTime < 5 && gameState === "playing") {
-    ctx.fillStyle = "rgba(25, 38, 52, 0.65)";
+    ctx.fillStyle = "rgba(13, 22, 42, 0.78)";
     roundRect(ctx, WIDTH / 2 - 160, 20, 320, 38, 11);
-    ctx.fillStyle = "#fff4d9";
+    ctx.fillStyle = "#dffaff";
     ctx.textAlign = "center";
     ctx.fillText("A / D 移動　SPACE ジャンプ　J 攻撃", WIDTH / 2, 44);
     ctx.textAlign = "left";
@@ -355,13 +407,13 @@ function drawHeart(x, y, size) {
 
 function drawOverlay() {
   if (gameState === "playing") return;
-  ctx.fillStyle = "rgba(19, 29, 41, 0.72)";
+  ctx.fillStyle = "rgba(8, 13, 27, 0.82)";
   ctx.fillRect(0, 0, WIDTH, HEIGHT);
   ctx.textAlign = "center";
-  ctx.fillStyle = "#fff4d9";
+  ctx.fillStyle = "#dffaff";
   ctx.font = '700 46px "Space Grotesk", sans-serif';
   ctx.fillText(gameState === "won" ? "STAGE CLEAR!" : "GAME OVER", WIDTH / 2, HEIGHT / 2 - 12);
-  ctx.fillStyle = "#d9dfdf";
+  ctx.fillStyle = "#b6cbe5";
   ctx.font = '500 16px "Noto Sans JP", sans-serif';
   ctx.fillText(gameState === "won" ? "空の遺跡を突破した！" : "もう一度チャレンジしよう", WIDTH / 2, HEIGHT / 2 + 28);
   ctx.font = '500 12px "DM Mono", monospace';
